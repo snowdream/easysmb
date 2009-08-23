@@ -5,17 +5,20 @@ bool  rbrowse::setHost(QString  host,QString  username,QString  password){
 rhost=host;
 rtreeview->setRootIndex(rdirmodel->index(rhost));
 rlistview->setRootIndex(rdirmodel->index(rhost));
+rtreeview->setColumnHidden(0,false);
+rlistview->setModelColumn(0);
 return true;
 }
 
 
 rbrowse::rbrowse(QWidget *parent):QWidget(parent){
   rdirmodel = new QFileSystemModel;
-//    rdirmodel->setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
+  //rdirmodel->setFilter(QDir::AllDirs | QDir::NoDotAndDotDot);
       rdirmodel->setRootPath("/");
    rlistview = new QListView;
    rlistview->setModel(rdirmodel);
-      rlistview->setRootIndex(rdirmodel->index(""));
+    rlistview->setRootIndex(rdirmodel->index(""));
+    rlistview->setModelColumn(1);
 
    rtreeview = new QTreeView;
     rtreeview->setSortingEnabled(true);
@@ -24,12 +27,12 @@ rbrowse::rbrowse(QWidget *parent):QWidget(parent){
     rtreeview->setAnimated(true);
     rtreeview->setIndentation(20);
     rtreeview->setColumnWidth(0,100);
+    rtreeview->hideColumn(0);
     rtreeview->hideColumn(1);
     rtreeview->hideColumn(2);
     rtreeview->hideColumn(3);
     rtreeview->setHeaderHidden(true);
-    //   rtreeview->setRootIndex(rdirmodel->index("//192.168.1.86"));
-          rtreeview->setRootIndex(rdirmodel->index(""));
+    rtreeview->setRootIndex(rdirmodel->index(""));
    QObject::connect(rtreeview, SIGNAL(clicked(const QModelIndex&)),
                      rlistview, SLOT(setRootIndex(const QModelIndex&)));
    QObject::connect(rlistview, SIGNAL(clicked(const QModelIndex&)),
@@ -94,11 +97,15 @@ openpro->start(qarg);
 
 bool rbrowse::setIcon(){
 rlistview->setViewMode(QListView::IconMode);
+QSize size(100, 50);
+rlistview->setGridSize(size);
 return true;
 }
 
 bool rbrowse::setList(){
 rlistview->setViewMode(QListView::ListMode);
+QSize size(100, 16);
+rlistview->setGridSize(size);
 return true;
 }
 

@@ -4,7 +4,7 @@
 host::host(QWidget *parent):QWidget(parent){
         ipl = new QLabel("IP:");
         ipe = new QLineEdit;
-        ipe->setFocus();
+       ipe->setFocus();
         namel = new QLabel("username:");
         namee = new QLineEdit;
         passwdl = new QLabel("password:");

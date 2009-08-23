@@ -10,9 +10,10 @@ lbrowse::lbrowse(QWidget *parent):QWidget(parent){
    llistview->setModel(ldirmodel);
    llistview->setRootIndex(ldirmodel->index("c:/"));
 
+
     ltreeview = new QTreeView;
     ltreeview->setSortingEnabled(true);
-    ltreeview->sortByColumn(0,Qt::DescendingOrder);
+    ltreeview->sortByColumn(0,Qt::AscendingOrder);
     ltreeview->setModel(ldirmodel);
     ltreeview->setAnimated(true);
     ltreeview->setIndentation(20);
@@ -89,10 +90,14 @@ openpro->start(qarg);
 
 bool lbrowse::setIcon(){
 llistview->setViewMode(QListView::IconMode);
+QSize size(100, 50);
+llistview->setGridSize(size);
 return true;
     }
 
 bool lbrowse::setList(){
 llistview->setViewMode(QListView::ListMode);
+QSize size(100, 16);
+llistview->setGridSize(size);
 return true;
 }
